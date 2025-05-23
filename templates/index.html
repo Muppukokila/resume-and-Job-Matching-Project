@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume and Job Matching</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #00b4db, #0083b0); /* Blue gradient */
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95); /* White background for content */
+            color: #000;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 700px;
+        }
+
+        .form-label, .list-group-item strong {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div class="d-flex justify-content-center align-items-center py-5">
+    <div class="container">
+        <h1 class="mb-4 text-center">Resume and Job Matching</h1>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="resume" class="form-label">Upload your Resume (PDF only)</label>
+                <input class="form-control" type="file" id="resume" name="resume" accept=".pdf" required />
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Analyze Resume</button>
+            </div>
+        </form>
+
+        {% if contact %}
+        <hr />
+        <h3 class="text-center">Extracted Information</h3>
+        <ul class="list-group mt-3">
+            <li class="list-group-item"><strong>Contact Number:</strong> {{ contact }}</li>
+            <li class="list-group-item"><strong>Email:</strong> {{ email }}</li>
+            <li class="list-group-item"><strong>Skills:</strong> {{ skills | join(', ') }}</li>
+            <li class="list-group-item"><strong>Education:</strong> {{ education | join(', ') }}</li>
+            <li class="list-group-item"><strong>Predicted Job Category:</strong> {{ category }}</li>
+            <li class="list-group-item"><strong>Recommended Job Role:</strong> {{ recommended_job }}</li>
+        </ul>
+        {% endif %}
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
